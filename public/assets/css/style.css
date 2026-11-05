@@ -304,3 +304,103 @@ body {
     .login-lado { padding: 2rem 1rem; }
     .login-card { padding: 2rem 1.5rem; }
 }
+
+/* ======================= SIDEBAR ======================= */
+.sidebar-wrapper {
+    width: 280px;
+    height: 100vh;
+    background-color: var(--verde);
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+/* Header & Marca */
+.subtitulo-marca {
+    font-size: 0.65rem;
+    letter-spacing: 0.15em;
+    color: var(--acento);
+    font-weight: 600;
+}
+
+/* Banner de Estatus */
+.sidebar-status {
+    background: rgba(0, 0, 0, 0.15);
+    border-y: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status-texto {
+    font-size: 0.85rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.punto-verde {
+    width: 8px;
+    height: 8px;
+    background-color: #2ecc71;
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 0 6px rgba(46, 204, 113, 0.6);
+}
+
+.badge-version {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--acento);
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 0.4rem;
+}
+
+/* Items del Menú */
+.sidebar-nav .nav-link {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.05rem;
+    font-weight: 500;
+    padding: 0.85rem 1.2rem;
+    border-radius: 0.9rem;
+    transition: all 0.2s ease-in-out;
+}
+
+.sidebar-nav .nav-link:hover {
+    color: #ffffff;
+    background-color: var(--verde-hover);
+}
+
+/* Ícono del menú en dorado suave */
+.icon-menu {
+    font-size: 1.25rem;
+    color: var(--acento);
+}
+
+/* Estado Activo */
+.sidebar-nav .nav-link.active {
+    background-color: rgba(255, 255, 255, 0.18);
+    color: #ffffff;
+    font-weight: 600;
+    box-shadow: inset 3px 0 0 var(--acento);
+}
+
+/* Footer & Perfil */
+.avatar-usuario {
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    border: 2px solid var(--acento);
+}
+
+.info-usuario h6 {
+    font-size: 0.95rem;
+    color: #ffffff;
+}
+
+.btn-logout {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 1.35rem;
+    padding: 0.4rem;
+    border-radius: 0.5rem;
+    transition: color 0.2s;
+    text-decoration: none;
+}
+
+.btn-logout:hover {
+    color: #ff6b6b;
+}
