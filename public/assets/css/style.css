@@ -404,3 +404,107 @@ body {
 .btn-logout:hover {
     color: #ff6b6b;
 }
+
+/* ================= USUARIOS Y ROLES ================= */
+.contenido-panel {
+    background: var(--crema);
+    min-width: 0; /* permite que la tabla haga scroll dentro de su tarjeta */
+}
+
+.titulo-pagina {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: var(--verde);
+}
+
+.btn-principal { background: var(--verde); color: #fff; }
+.btn-principal i { color: var(--acento); }
+.btn-principal:hover { background: var(--verde-hover); color: #fff; }
+
+.tabla-usuarios th,
+.tabla-usuarios td { padding: 1.2rem 1.5rem; }
+
+.avatar-inicial {
+    width: 2.8rem; height: 2.8rem;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: 1.5px solid #e2b98d;
+    background: var(--crema);
+    color: var(--verde);
+    font-weight: 600;
+}
+
+/* Roles */
+.rol-admin  { background: var(--verde); color: #fff; }
+.rol-mesero { background: #fdf0c4; color: #8a5a00; }
+.rol-cocina { background: #e3e6fb; color: #2d3a9e; }
+.rol-cajero { background: #d5f5e3; color: #1e7a46; }
+
+/* Estados */
+.estado-activo    { background: #d3f5e2; color: #14633a; }
+.estado-bloqueado { background: #fde2e4; color: #a4161a; }
+
+/* ----- Celular ----- */
+@media (max-width: 575px) {
+    .titulo-pagina { font-size: 2.4rem; }
+    .btn-principal { width: 100%; }
+}
+
+/* ----- Tableta: celdas más compactas para que la tabla quepa sin scroll ----- */
+@media (max-width: 991px) {
+    .tabla-usuarios th,
+    .tabla-usuarios td { padding: 1rem .9rem; }
+}
+
+/* ----- Escritorio: sidebar fijo y tamaños compactos como la maqueta ----- */
+@media (min-width: 992px) {
+    /* Solo esta zona hace scroll */
+    .contenido-panel { height: 100vh; overflow-y: auto; }
+
+    .titulo-pagina { font-size: 2.6rem; }
+    .titulo-pagina + p { font-size: 1.05rem !important; }
+
+    .btn-principal {
+        padding: .6rem 1.3rem;
+        font-size: 1rem;
+    }
+
+    .tabla-usuarios th,
+    .tabla-usuarios td {
+        padding: .85rem 1.25rem;
+        font-size: .92rem;
+    }
+
+    /* Evita que los textos se partan en dos líneas */
+    .tabla-usuarios th,
+    .tabla-usuarios .btn,
+    .tabla-usuarios td:first-child .fw-semibold {
+        white-space: nowrap;
+    }
+
+    .tabla-usuarios td:last-child > div { flex-wrap: nowrap !important; }
+
+    .avatar-inicial { width: 2.3rem; height: 2.3rem; font-size: .9rem; }
+
+    .tabla-usuarios .badge { font-size: .75rem; }
+
+    .tabla-usuarios .btn {
+        padding: .35rem .8rem;
+        font-size: .88rem;
+    }
+
+    /* "Desbloquear" en tono suave, como la maqueta */
+    .tabla-usuarios .btn-warning {
+        background: #fdf3d9;
+        border-color: #fdf3d9;
+        color: #8a4b08;
+    }
+}
+
+/* Entre 992 y 1199 px el sidebar deja poco espacio: se oculta "Último acceso" */
+@media (min-width: 992px) and (max-width: 1199px) {
+    .tabla-usuarios th:nth-child(5),
+    .tabla-usuarios td:nth-child(5) { display: none !important; }
+}
