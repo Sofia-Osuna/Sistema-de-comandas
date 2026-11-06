@@ -626,3 +626,71 @@ body {
 .bn-tono-verde  { background: #d5f5e3; color: #1e7a46; }
 .bn-tono-ambar  { background: #fdf0c4; color: #b45309; }
 .bn-tono-indigo { background: #e3e6fb; color: #2d3a9e; }
+
+/* ================= TABLERO DE MESAS ================= */
+
+/* Tarjeta de mesa con borde por estado */
+.bn-card.bn-mesa { border-width: 2px; }
+.bn-card.bn-mesa-libre   { border-color: #86e0b5; }
+.bn-card.bn-mesa-ocupada { border-color: #f2d067; }
+.bn-card.bn-mesa-cuenta  { border-color: #f08a9a; }
+
+/* Círculo con el número */
+.bn-mesa-num {
+    width: 2.4rem;
+    height: 2.4rem;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 1px solid var(--borde);
+    background: var(--crema);
+    color: var(--verde);
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+/* Nombre de la mesa */
+.bn-mesa-titulo {
+    font-family: 'Outfit', sans-serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2b2b2b;
+    margin: 0;
+}
+
+.bn-mesa-dato { color: var(--texto-suave); }
+
+/* Pastillas de estado */
+.bn-estado {
+    display: inline-block;
+    padding: .25rem .7rem;
+    border-radius: 2rem;
+    font-size: .78rem;
+    font-weight: 500;
+    white-space: nowrap;
+}
+.bn-estado-mesa-libre   { background: #d5f5e3; color: #1e7a46; }
+.bn-estado-mesa-ocupada { background: #fdf0c4; color: #8a5a00; }
+.bn-estado-mesa-cuenta  { background: #fde2e4; color: #a4161a; }
+
+/* Puntitos de la leyenda */
+.bn-dot {
+    width: .85rem;
+    height: .85rem;
+    border-radius: 50%;
+    display: inline-block;
+}
+.bn-dot-libre   { background: #4cbf8b; }
+.bn-dot-ocupada { background: #f2c14e; }
+.bn-dot-cuenta  { background: #e5546a; }
+
+/* Botón del ojo en verde oscuro */
+.bn-accion.bn-accion-solido {
+    background: var(--verde);
+    border-color: var(--verde);
+    color: #fff;
+}
+.bn-accion.bn-accion-solido:hover { background: var(--verde-hover); }
