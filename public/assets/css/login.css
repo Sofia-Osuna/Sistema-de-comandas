@@ -1,0 +1,356 @@
+/* ============================================================
+   LOGIN
+   Requiere style.css (variables y estilos base) cargado antes
+   ============================================================ */
+
+/* En escritorio el login ocupa exactamente la pantalla, sin scroll */
+body.pagina-login { overflow: hidden; }
+
+/* ================= PANEL IZQUIERDO (escritorio) ================= */
+.login-hero {
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem 3.5rem 3rem;
+    color: #fff;
+    background:
+        linear-gradient(to top, rgba(18, 28, 20, .92) 0%, rgba(18, 28, 20, .45) 45%, rgba(18, 28, 20, .25) 100%),
+        url('../img/login-bg.jpg') center / cover no-repeat;
+}
+
+.hero-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.marca { display: flex; align-items: center; gap: .8rem; }
+
+.marca-icono {
+    width: 48px; height: 48px;
+    border-radius: 50%;
+    background: var(--crema);
+    color: var(--verde);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+}
+
+.marca-nombre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem;
+    font-weight: 600;
+    letter-spacing: .03em;
+}
+
+.pill-hero {
+    display: inline-flex; align-items: center; gap: .5rem;
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .5rem 1rem;
+    border-radius: 2rem;
+    border: 1px solid rgba(255, 255, 255, .3);
+    background: rgba(255, 255, 255, .12);
+    backdrop-filter: blur(6px);
+}
+
+.pill-hero .punto {
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--acento);
+}
+
+.hero-etiqueta {
+    display: flex; align-items: center; gap: .8rem;
+    color: var(--acento);
+    font-size: .8rem;
+    letter-spacing: .18em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+}
+
+.hero-etiqueta .linea {
+    width: 40px; height: 1px;
+    background: var(--acento);
+}
+
+.hero-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4.2rem;
+    font-weight: 600;
+    line-height: 1.05;
+    margin-bottom: 1.2rem;
+}
+
+.hero-titulo em {
+    font-style: italic;
+    font-weight: 500;
+    display: inline-block;
+    border-bottom: 2px solid var(--acento);
+    padding-bottom: .1rem;
+}
+
+.hero-texto {
+    max-width: 460px;
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: .85;
+    margin-bottom: 1.5rem;
+}
+
+.hero-detalles {
+    display: flex; gap: 2rem;
+    font-size: .9rem;
+    opacity: .9;
+}
+
+.hero-detalles i { color: var(--acento); margin-right: .3rem; }
+
+/* ================= PANEL DERECHO ================= */
+.login-lado {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 2rem;
+    background-color: var(--fondo);
+}
+
+.login-envoltura {
+    width: 100%;
+    max-width: 520px;
+}
+
+.login-card {
+    position: relative;
+    background: var(--crema);
+    border-radius: 1.5rem;
+    padding: 2.5rem;
+    box-shadow: 0 12px 45px rgba(60, 50, 30, .08);
+}
+
+.icono-globo {
+    position: absolute;
+    top: 1.5rem; right: 1.5rem;
+    font-size: 1.4rem;
+    color: #b5b0a5;
+}
+
+.pill-portal {
+    display: inline-block;
+    background: var(--fondo);
+    font-size: .75rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    padding: .4rem .9rem;
+    border-radius: 2rem;
+    margin-bottom: .5rem;
+}
+
+.login-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    color: var(--verde);
+    margin-bottom: .2rem;
+}
+
+.login-subtitulo {
+    color: var(--texto-suave);
+    margin-bottom: 1.5rem;
+}
+
+.etiqueta {
+    display: block;
+    font-size: .8rem;
+    font-weight: 500;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    margin-bottom: .4rem;
+}
+
+.enlace-acento {
+    color: var(--acento);
+    font-size: .85rem;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.enlace-acento:hover { text-decoration: underline; }
+
+/* ----- Campos ----- */
+.campo {
+    display: flex;
+    align-items: center;
+    gap: .8rem;
+    height: 3.2rem;
+    padding: 0 1rem;
+    background: #fbf9f4;
+    border: 1px solid var(--borde);
+    border-radius: .9rem;
+    transition: border-color .2s;
+}
+
+.campo:focus-within { border-color: var(--verde); }
+
+.campo > i { color: #9d988c; font-size: 1.15rem; }
+
+.campo .form-control {
+    border: 0;
+    background: transparent;
+    box-shadow: none;
+    padding: 0;
+    font-size: 1rem; /* 16px: evita el zoom automático en iPhone */
+}
+
+.btn-ojo {
+    border: 0;
+    background: transparent;
+    color: #9d988c;
+    font-size: 1.15rem;
+    padding: 0;
+}
+
+.form-check-label { font-size: .9rem; color: var(--texto-suave); }
+
+.form-check-input:checked {
+    background-color: var(--verde);
+    border-color: var(--verde);
+}
+
+/* ----- Botones ----- */
+.btn-login {
+    width: 100%;
+    height: 3.2rem;
+    border: 0;
+    border-radius: .9rem;
+    background: var(--verde);
+    color: #fff;
+    font-size: 1.05rem;
+    font-weight: 500;
+    transition: background .2s;
+}
+
+.btn-login:hover { background: var(--verde-hover); }
+.btn-login i { margin-left: .4rem; }
+
+.divisor {
+    display: flex; align-items: center; gap: 1rem;
+    font-size: .72rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: #8a8478;
+}
+
+.divisor::before,
+.divisor::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--borde);
+}
+
+.btn-google {
+    width: 100%;
+    height: 3.2rem;
+    display: flex; align-items: center; justify-content: center; gap: .7rem;
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: .9rem;
+    font-weight: 500;
+    transition: background .2s;
+}
+
+.btn-google:hover { background: #f4f1ea; }
+
+.registro {
+    text-align: center;
+    color: var(--texto-suave);
+    font-size: .9rem;
+    margin: 1rem 0 0;
+}
+
+/* ----- Pie ----- */
+.pie-login {
+    text-align: center;
+    font-size: .8rem;
+    color: var(--texto-suave);
+    margin-top: 1rem;
+}
+
+.pie-login a { color: inherit; text-decoration: none; }
+.pie-login a:hover { text-decoration: underline; }
+.pie-login span { margin: 0 .5rem; }
+
+/* ================= CABECERA MÓVIL ================= */
+.login-movil {
+    width: 100%;
+    padding: 1.75rem 1.5rem 4rem; /* espacio extra abajo para que la tarjeta se monte */
+    color: #fff;
+    text-align: center;
+    background:
+        linear-gradient(to top, rgba(18, 28, 20, .9) 0%, rgba(18, 28, 20, .55) 100%),
+        url('../img/login-bg.jpg') center / cover no-repeat;
+}
+
+.login-movil .marca {
+    justify-content: center;
+    gap: .6rem;
+}
+
+.login-movil .marca-icono { width: 40px; height: 40px; font-size: 1.15rem; }
+.login-movil .marca-nombre { font-size: 1.7rem; }
+
+.login-movil-lema {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 600;
+    line-height: 1.15;
+    margin: 1rem 0 0;
+}
+
+.login-movil-lema em {
+    font-style: italic;
+    font-weight: 500;
+    color: var(--acento);
+}
+
+/* ================= RESPONSIVO ================= */
+
+/* Tableta y móvil: se permite scroll y se muestra la cabecera */
+@media (max-width: 991px) {
+    body.pagina-login { overflow: auto; }
+
+    .container-fluid { overflow: visible !important; }
+    .row { height: auto !important; min-height: 100vh; min-height: 100dvh; }
+
+    .login-lado {
+        justify-content: flex-start;
+        padding: 0 1rem 1.5rem;
+    }
+
+    /* La tarjeta se monta sobre la cabecera */
+    .login-envoltura {
+        margin-top: -2.5rem;
+        position: relative;
+        z-index: 1;
+    }
+
+    .login-card { padding: 2rem 1.5rem; }
+}
+
+/* Celulares */
+@media (max-width: 575px) {
+    .login-movil { padding: 1.5rem 1.25rem 3.5rem; }
+    .login-movil-lema { font-size: 1.5rem; }
+
+    .login-lado { padding: 0 .75rem 1.25rem; }
+
+    .login-card { padding: 1.5rem 1.15rem; border-radius: 1.25rem; }
+
+    .icono-globo { display: none; }
+    .login-titulo { font-size: 2.1rem; }
+    .login-subtitulo { font-size: .95rem; margin-bottom: 1.25rem; }
+
+    /* Que el pie no se amontone */
+    .pie-login span { margin: 0 .3rem; }
+}

@@ -5,11 +5,11 @@
 
 // Datos de ejemplo (después vendrán de modelos/Usuario.php con PDO)
 $usuarios = [
-    ['nombre' => 'Sofía Mendoza',    'correo' => 'admin@beanora.com',    'rol' => 'Admin',  'estado' => 'activo',    'acceso' => 'Hace 2 min'],
-    ['nombre' => 'Carlos Morales',   'correo' => 'carlos.m@beanora.com', 'rol' => 'Mesero', 'estado' => 'activo',    'acceso' => 'Hace 15 min'],
-    ['nombre' => 'Ana Ruiz',         'correo' => 'ana.r@beanora.com',    'rol' => 'Mesero', 'estado' => 'activo',    'acceso' => 'Hace 1 hora'],
-    ['nombre' => 'Chef Mateo Silva', 'correo' => 'cocina@beanora.com',   'rol' => 'Cocina', 'estado' => 'activo',    'acceso' => 'En línea'],
-    ['nombre' => 'Lucía Fernández',  'correo' => 'lucia.f@beanora.com',  'rol' => 'Cajero', 'estado' => 'bloqueado', 'acceso' => 'Ayer 19:30'],
+    ['id' => 1, 'nombre' => 'Sofía Mendoza',    'correo' => 'admin@beanora.com',    'rol' => 'Admin',  'estado' => 'activo',    'acceso' => 'Hace 2 min'],
+    ['id' => 2, 'nombre' => 'Carlos Morales',   'correo' => 'carlos.m@beanora.com', 'rol' => 'Mesero', 'estado' => 'activo',    'acceso' => 'Hace 15 min'],
+    ['id' => 3, 'nombre' => 'Ana Ruiz',         'correo' => 'ana.r@beanora.com',    'rol' => 'Mesero', 'estado' => 'activo',    'acceso' => 'Hace 1 hora'],
+    ['id' => 4, 'nombre' => 'Chef Mateo Silva', 'correo' => 'cocina@beanora.com',   'rol' => 'Cocina', 'estado' => 'activo',    'acceso' => 'En línea'],
+    ['id' => 5, 'nombre' => 'Lucía Fernández',  'correo' => 'lucia.f@beanora.com',  'rol' => 'Cajero', 'estado' => 'bloqueado', 'acceso' => 'Ayer 19:30'],
 ];
 ?>
 <!DOCTYPE html>
@@ -26,6 +26,7 @@ $usuarios = [
 
     <link rel="stylesheet" href="../assets/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/usuarios.css">
 </head>
 <body>
 <div class="d-flex flex-column flex-lg-row">
@@ -40,9 +41,9 @@ $usuarios = [
                 <h1 class="titulo-pagina mb-1">Usuarios y Roles</h1>
                 <p class="fs-5 text-secondary mb-0">Administración de credenciales y permisos del personal.</p>
             </div>
-            <button type="button" class="btn btn-principal btn-lg rounded-3 d-inline-flex align-items-center justify-content-center gap-2">
+            <a href="formulario-usuario.php" class="btn btn-principal btn-lg rounded-3 d-inline-flex align-items-center justify-content-center gap-2">
                 <i class="bi bi-person-plus-fill"></i> Nuevo Usuario
-            </button>
+            </a>
         </div>
 
         <!-- ================= TARJETAS (celular) ================= -->
@@ -81,6 +82,9 @@ $usuarios = [
                                     <i class="bi bi-key-fill"></i> Desbloquear
                                 </button>
                             <?php endif; ?>
+                            <a href="formulario-usuario.php?id=<?= (int) $u['id'] ?>" class="btn btn-light flex-fill">
+                                <i class="bi bi-pencil"></i> Editar
+                            </a>
                             <button type="button" class="btn btn-light flex-fill">Desactivar</button>
                             <button type="button" class="btn btn-light" title="Restablecer contraseña">
                                 <i class="bi bi-arrow-counterclockwise"></i>
@@ -138,6 +142,9 @@ $usuarios = [
                                             <i class="bi bi-key-fill"></i> Desbloquear
                                         </button>
                                     <?php endif; ?>
+                                    <a href="formulario-usuario.php?id=<?= (int) $u['id'] ?>" class="btn btn-light" title="Editar usuario">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
                                     <button type="button" class="btn btn-light">Desactivar</button>
                                     <button type="button" class="btn btn-link text-secondary" title="Restablecer contraseña">
                                         <i class="bi bi-arrow-counterclockwise"></i>

@@ -1,0 +1,205 @@
+/* ============================================================
+   FORMULARIO DE USUARIO
+   Requiere style.css (variables) cargado antes
+   ============================================================ */
+
+/* ----- Centrado -----
+   El <main> es flex y este contenedor usa margin:auto,
+   así queda centrado en horizontal y vertical, y si la pantalla
+   es muy baja simplemente hace scroll sin cortarse arriba. */
+.form-centrado {
+    width: 100%;
+    max-width: 960px;
+    margin: auto;
+}
+
+.form-centrado .titulo-pagina { font-size: 2.3rem; }
+
+.form-subtitulo {
+    font-size: 1rem;
+    color: var(--texto-suave);
+}
+
+.volver {
+    color: var(--texto-suave);
+    text-decoration: none;
+    font-size: .92rem;
+    transition: color .2s;
+}
+.volver:hover { color: var(--verde); }
+
+/* ----- Tarjeta ----- */
+.form-card {
+    background: #fff;
+    border: 1px solid var(--borde);
+    border-radius: 1.25rem;
+    box-shadow: 0 4px 18px rgba(60, 50, 30, .06);
+    overflow: hidden;
+}
+
+/* Dos columnas en escritorio */
+.form-cuerpo {
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+@media (min-width: 992px) {
+    .form-cuerpo { grid-template-columns: 1fr 1fr; }
+    .form-col + .form-col { border-left: 1px solid var(--borde); }
+}
+
+.form-seccion { padding: 1.4rem 1.75rem; }
+.form-seccion + .form-seccion { border-top: 1px solid var(--borde); }
+
+/* En celular/tableta las columnas se apilan con una línea entre ellas */
+@media (max-width: 991px) {
+    .form-col + .form-col { border-top: 1px solid var(--borde); }
+}
+
+.form-seccion-titulo {
+    font-family: 'Outfit', sans-serif;
+    font-size: .75rem;
+    font-weight: 600;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+    margin: 0 0 1rem;
+}
+
+/* ----- Campos ----- */
+.form-etiqueta {
+    display: block;
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    margin-bottom: .35rem;
+}
+
+.form-card .form-control {
+    height: 2.9rem;
+    background-color: #fbf9f4;
+    border: 1px solid var(--borde);
+    border-radius: .85rem;
+    padding: 0 1rem;
+    font-size: 1rem; /* 16px: evita el zoom automático en iPhone */
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.form-card .form-control:focus {
+    border-color: var(--verde);
+    box-shadow: 0 0 0 .2rem rgba(31, 58, 43, .12);
+}
+
+.form-ayuda {
+    margin-top: .35rem;
+    font-size: .8rem;
+    color: var(--texto-suave);
+}
+
+/* ----- Contraseña con ojo ----- */
+.campo-pass { position: relative; }
+.campo-pass .form-control { padding-right: 3rem; }
+
+.btn-ojo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 2.9rem;
+    width: 3rem;
+    border: 0;
+    background: transparent;
+    color: #9d988c;
+    font-size: 1.1rem;
+}
+.btn-ojo:hover { color: var(--verde); }
+
+/* El mensaje de error debe quedar debajo del campo, no encima del ojo */
+.campo-pass .invalid-feedback { position: static; }
+
+/* ----- Rol (opciones tipo chip) ----- */
+.roles-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: .5rem;
+}
+
+.opcion-rol {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 2.9rem;
+    background: #fbf9f4;
+    border: 1px solid var(--borde);
+    border-radius: .85rem;
+    font-size: .92rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: border-color .2s, background .2s, color .2s;
+}
+
+.opcion-rol:hover { border-color: var(--verde); }
+
+.btn-check:checked + .opcion-rol {
+    background: var(--verde);
+    border-color: var(--verde);
+    color: #fff;
+}
+
+.btn-check:focus-visible + .opcion-rol {
+    outline: 2px solid var(--acento);
+    outline-offset: 2px;
+}
+
+/* ----- Interruptor ----- */
+.form-switch .form-check-input { cursor: pointer; }
+.form-switch .form-check-input:checked {
+    background-color: var(--verde);
+    border-color: var(--verde);
+}
+.form-switch .form-check-input:focus { box-shadow: 0 0 0 .2rem rgba(31, 58, 43, .12); }
+.form-switch .form-check-label { cursor: pointer; }
+
+/* ----- Botones ----- */
+.form-acciones {
+    display: flex;
+    justify-content: flex-end;
+    gap: .75rem;
+    padding: 1rem 1.75rem;
+    background: #fbf9f4;
+    border-top: 1px solid var(--borde);
+}
+
+.form-acciones .btn {
+    padding: .55rem 1.4rem;
+    border-radius: .75rem;
+    font-weight: 500;
+}
+
+/* Botón verde propio del formulario (no depende de otros archivos) */
+.form-acciones .btn-principal {
+    background: var(--verde);
+    border-color: var(--verde);
+    color: #fff;
+}
+.form-acciones .btn-principal i { color: var(--acento); }
+.form-acciones .btn-principal:hover {
+    background: var(--verde-hover);
+    border-color: var(--verde-hover);
+    color: #fff;
+}
+
+/* ----- Celular ----- */
+@media (max-width: 575px) {
+    .form-centrado .titulo-pagina { font-size: 2rem; }
+
+    .form-seccion { padding: 1.25rem 1.15rem; }
+
+    .roles-grid { grid-template-columns: repeat(2, 1fr); }
+
+    .form-acciones {
+        flex-direction: column-reverse;
+        padding: 1.15rem;
+    }
+    .form-acciones .btn { width: 100%; }
+}
