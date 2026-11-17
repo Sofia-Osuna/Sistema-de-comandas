@@ -146,6 +146,12 @@ $pagina_actual = basename($_SERVER['PHP_SELF']);
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="categoria.php" class="nav-link d-flex align-items-center gap-3 <?= ($pagina_actual == 'categoria.php') ? 'active' : ''; ?>">
+                        <i class="bi-tag-fill icon-menu"></i>
+                        <span>Gestión de las categorias</span>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="usuarios.php" class="nav-link d-flex align-items-center gap-3 <?= ($pagina_actual == 'usuarios.php') ? 'active' : ''; ?>">
                         <i class="bi bi-people-fill icon-menu"></i>
                         <span>Usuarios y Roles</span>
