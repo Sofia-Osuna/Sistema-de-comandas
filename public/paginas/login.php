@@ -12,14 +12,13 @@
 
     <link rel="stylesheet" href="../assets/lib/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="../assets/css/style.css">
+    <link rel="stylesheet" href="../assets/css/login.css">
 </head>
-<body>
-<!-- p-0 quita la línea blanca. overflow-hidden evita el scroll global -->
-<div class="container-fluid p-0 overflow-hidden">
-    <!-- vh-100 fuerza exactamente el alto de la pantalla -->
+<body class="pagina-login">
+<div class="container-fluid p-0">
     <div class="row g-0 vh-100">
 
-        <!-- ========== PANEL IZQUIERDO ========== -->
+        <!-- ========== PANEL IZQUIERDO (solo escritorio) ========== -->
         <div class="col-lg-6 d-none d-lg-flex login-hero">
 
             <div class="hero-top">
@@ -50,6 +49,16 @@
 
         <!-- ========== PANEL DERECHO ========== -->
         <div class="col-12 col-lg-6 login-lado">
+
+            <!-- Cabecera solo para móvil y tableta -->
+            <header class="login-movil d-lg-none">
+                <div class="marca">
+                    <span class="marca-icono"><i class="bi bi-cup-hot"></i></span>
+                    <span class="marca-nombre">Beanora</span>
+                </div>
+                <p class="login-movil-lema">El buen café trae <em>mejores días</em></p>
+            </header>
+
             <div class="login-envoltura">
 
                 <div class="login-card">
@@ -60,12 +69,12 @@
                     <p class="login-subtitulo">Inicia sesión para disfrutar de tu café favorito</p>
 
                     <form action="../acciones/login_validar.php" method="POST">
-                        
+
                         <label for="correo" class="etiqueta">Correo electrónico</label>
                         <div class="campo mb-3">
                             <i class="bi bi-envelope"></i>
                             <input type="email" class="form-control" id="correo" name="correo"
-                                   placeholder="Ingresa tu correo" required>
+                                   placeholder="Ingresa tu correo" autocomplete="email" required>
                         </div>
 
                         <div class="d-flex justify-content-between align-items-center">
@@ -75,7 +84,7 @@
                         <div class="campo mb-2">
                             <i class="bi bi-lock"></i>
                             <input type="password" class="form-control" id="password" name="password"
-                                   placeholder="Ingresa tu contraseña" required>
+                                   placeholder="Ingresa tu contraseña" autocomplete="current-password" required>
                             <button type="button" class="btn-ojo" id="verPassword" aria-label="Mostrar contraseña">
                                 <i class="bi bi-eye"></i>
                             </button>
@@ -103,7 +112,6 @@
                         Continuar con Google
                     </button>
 
-                    <p class="registro">¿No tienes una cuenta? <a href="#" class="enlace-acento">Regístrate</a></p>
                 </div>
 
                 <p class="pie-login">
