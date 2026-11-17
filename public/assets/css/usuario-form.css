@@ -202,4 +202,5 @@
         padding: 1.15rem;
     }
     .form-acciones .btn { width: 100%; }
+    .form-centrado-sm { max-width: 520px; }
 }
