@@ -1,0 +1,162 @@
+/* ============================================================
+   NUEVO PEDIDO
+   Requiere style.css y usuario-form.css cargados antes
+   ============================================================ */
+
+.pedido-contenedor { max-width: 1200px; margin: 0 auto; }
+.min-w-0 { min-width: 0; }
+
+/* Dos columnas en escritorio: productos | resumen */
+.pedido-layout { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+
+@media (min-width: 992px) {
+    .pedido-layout { grid-template-columns: 1fr 360px; align-items: start; }
+    .ticket { position: sticky; top: 1rem; }
+}
+
+@media (min-width: 1200px) {
+    .pedido-layout { grid-template-columns: 1fr 400px; }
+}
+
+/* Selects con el mismo look que los inputs del formulario */
+.form-card .form-select.form-control { padding-right: 2.25rem; }
+.form-card .form-select.form-control.is-invalid { border-color: #dc3545; }
+
+/* ----- Buscador ----- */
+.buscador { position: relative; max-width: 420px; }
+.buscador > i {
+    position: absolute; top: 50%; left: 1rem;
+    transform: translateY(-50%);
+    color: #9d988c; pointer-events: none;
+}
+.buscador-input { padding-left: 2.6rem !important; }
+
+/* ----- Chips de categoría ----- */
+.ped-chip {
+    border: 1px solid var(--borde);
+    background: #fff;
+    color: var(--texto-suave);
+    border-radius: 2rem;
+    padding: .4rem 1rem;
+    font-size: .88rem;
+    font-weight: 500;
+    transition: all .2s;
+}
+.ped-chip:hover { border-color: var(--verde); color: var(--verde); }
+.ped-chip.activo { background: var(--verde); border-color: var(--verde); color: #fff; }
+
+/* ----- Producto (botón-tarjeta) ----- */
+.prod {
+    position: relative;
+    width: 100%;
+    display: flex; align-items: center; gap: .8rem;
+    padding: .8rem;
+    text-align: left;
+    background: #fbf9f4;
+    border: 1.5px solid var(--borde);
+    border-radius: 1rem;
+    transition: border-color .2s, background .2s, transform .1s;
+}
+.prod:hover:not(:disabled) { border-color: var(--verde); background: #fff; }
+.prod:active:not(:disabled) { transform: scale(.98); }
+.prod.en-pedido { border-color: var(--verde); background: #fff; }
+.prod.agotado { opacity: .5; cursor: not-allowed; }
+
+.prod-icono {
+    width: 2.8rem; height: 2.8rem; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: .8rem;
+    background: #fdf0c4; color: #b45309;
+    font-size: 1.3rem;
+}
+.prod-info { display: flex; flex-direction: column; min-width: 0; }
+.prod-nombre { font-weight: 600; font-size: .92rem; line-height: 1.2; color: #2b2b2b; }
+.prod-precio { font-size: .85rem; color: #b45309; font-weight: 500; }
+
+.prod-cant {
+    position: absolute; top: -.45rem; right: -.45rem;
+    min-width: 1.5rem; height: 1.5rem; padding: 0 .35rem;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 2rem;
+    background: var(--verde); color: #fff;
+    font-size: .78rem; font-weight: 600;
+}
+
+/* ----- Resumen del pedido ----- */
+.ticket-cod {
+    font-size: .8rem; font-weight: 600;
+    background: var(--fondo); color: var(--verde);
+    padding: .25rem .7rem; border-radius: 2rem;
+}
+
+.linea { padding: .85rem 0; border-bottom: 1px dashed var(--borde); }
+.linea:first-child { padding-top: 0; }
+.linea:last-child { border-bottom: 0; padding-bottom: 0; }
+.linea-nombre { font-weight: 500; font-size: .95rem; }
+.linea-sub { font-weight: 600; color: var(--verde); white-space: nowrap; }
+
+.stepper {
+    display: inline-flex; align-items: center;
+    border: 1px solid var(--borde); border-radius: .7rem;
+    background: #fbf9f4; overflow: hidden;
+}
+.stepper button {
+    width: 2rem; height: 2rem;
+    border: 0; background: transparent;
+    font-size: 1.1rem; color: var(--verde);
+}
+.stepper button:hover { background: var(--fondo); }
+.stepper span { min-width: 1.8rem; text-align: center; font-weight: 600; font-size: .92rem; }
+
+.linea-quitar { border: 0; background: transparent; color: #9d988c; padding: .25rem .4rem; border-radius: .5rem; }
+.linea-quitar:hover { color: #a4161a; background: #fde2e4; }
+
+.form-card .linea-notas {
+    height: 2.2rem;
+    margin-top: .6rem;
+    font-size: .85rem;
+    border-radius: .65rem;
+}
+
+.ticket-total {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2rem; font-weight: 700;
+    color: var(--verde);
+}
+
+/* ----- Barra inferior (celular y tableta) ----- */
+.barra-movil {
+    position: fixed; left: 0; right: 0; bottom: 0; z-index: 1030;
+    display: flex; align-items: center; justify-content: space-between; gap: 1rem;
+    padding: .75rem 1rem;
+    background: #fff;
+    border-top: 1px solid var(--borde);
+    box-shadow: 0 -4px 18px rgba(60, 50, 30, .08);
+}
+.barra-movil .btn-principal { background: var(--verde); color: #fff; border-radius: .75rem; }
+.barra-movil .btn-principal:hover { background: var(--verde-hover); color: #fff; }
+
+@media (max-width: 991px) {
+    /* espacio para que la barra no tape el final de la página */
+    .contenido-panel { padding-bottom: 5.5rem !important; }
+    html { scroll-behavior: smooth; }
+}
+
+/* ----- Avisos ----- */
+.ped-toasts {
+    position: fixed; top: 1rem; right: 1rem; z-index: 2000;
+    display: flex; flex-direction: column; gap: .5rem;
+}
+.ped-toast {
+    display: flex; align-items: center; gap: .6rem;
+    background: var(--verde); color: #fff;
+    padding: .75rem 1.1rem; border-radius: .9rem;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .18);
+    transition: opacity .3s, transform .3s;
+}
+.ped-toast i { color: var(--acento); }
+.ped-toast.saliendo { opacity: 0; transform: translateX(1rem); }
+
+@media (max-width: 575px) {
+    .ped-toasts { left: 1rem; }
+}
