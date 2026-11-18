@@ -84,12 +84,17 @@ $json_flags = JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON
     <main class="w-100 flex-grow-1 p-3 p-lg-4 overflow-y-auto" style="background-color: var(--fondo); min-height: 100vh;">
 
         <!-- Cabecera -->
-        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-2 mb-4">
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-3 mb-4">
             <div>
                 <h2 class="bn-titulo">Monitor General de Pedidos</h2>
                 <p class="bn-subtitulo">Supervisión en tiempo real entre el salón y la cocina</p>
             </div>
-            <span class="bn-en-vivo"><span class="punto"></span> En vivo · actualizado <strong id="horaActualizacion">--:--:--</strong></span>
+            <div class="d-flex flex-column flex-sm-row align-items-sm-center gap-3 align-self-start align-self-md-auto">
+                <span class="bn-en-vivo"><span class="punto"></span> En vivo · actualizado <strong id="horaActualizacion">--:--:--</strong></span>
+                <a href="formulario-pedidos.php" class="bn-btn bn-btn-verde text-decoration-none">
+                    <i class="bi bi-plus-lg"></i> Nuevo Pedido
+                </a>
+            </div>
         </div>
 
         <!-- Filtros + contador -->

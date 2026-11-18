@@ -61,9 +61,9 @@ $umbralAlerta = 40; // minutos: una mesa ocupada con más tiempo se marca en ale
                 <h1 class="bn-titulo">Tablero de Mesas</h1>
                 <p class="bn-subtitulo">Control de distribución en salón y tiempos de ocupación.</p>
             </div>
-            <button type="button" class="bn-btn bn-btn-verde align-self-start" data-bs-toggle="modal" data-bs-target="#modalNuevaMesa">
+            <a href="formulario-mesas.php" class="bn-btn bn-btn-verde align-self-start text-decoration-none">
                 <i class="bi bi-plus-lg"></i> Agregar Mesa
-            </button>
+            </a>
         </div>
 
         <!-- ================= Leyenda y filtros ================= -->
