@@ -163,6 +163,18 @@ $pagina_actual = basename($_SERVER['PHP_SELF']);
                         <span>Cuentas y Ventas</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a href="metodos-pagos.php" class="nav-link d-flex align-items-center gap-3 <?= ($pagina_actual == 'metodos-pagos.php') ? 'active' : ''; ?>">
+                        <i class="bi-credit-card-fill icon-menu"></i>
+                        <span>metodos de pagos</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="perfil.php" class="nav-link d-flex align-items-center gap-3 <?= ($pagina_actual == 'perfil.php') ? 'active' : ''; ?>">
+                        <i class="bi-person-circle icon-menu"></i>
+                        <span>perfil</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </div>
