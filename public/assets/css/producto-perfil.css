@@ -1,0 +1,221 @@
+/* ============================================================
+   FORMULARIO DE PRODUCTO  +  MI PERFIL
+   Complementa a usuario-form.css (cárgalo DESPUÉS de ese archivo).
+   Requiere style.css (variables --verde, --acento, --borde...)
+   ============================================================ */
+
+/* ----- Contenedores ----- */
+.form-centrado-xl { max-width: 1040px; }
+
+/* ----- Select y textarea con el mismo look que los inputs ----- */
+.form-card .form-select {
+    height: 2.9rem;
+    background-color: #fbf9f4;
+    border: 1px solid var(--borde);
+    border-radius: .85rem;
+    padding: 0 2.5rem 0 1rem;
+    font-size: 1rem;
+    transition: border-color .2s, box-shadow .2s;
+}
+.form-card .form-select:focus {
+    border-color: var(--verde);
+    box-shadow: 0 0 0 .2rem rgba(31, 58, 43, .12);
+}
+.form-card textarea.form-control {
+    height: auto;
+    min-height: 6.2rem;
+    padding: .7rem 1rem;
+    resize: vertical;
+}
+
+/* ----- Campo con prefijo ($) ----- */
+.campo-prefijo { position: relative; }
+.campo-prefijo > span {
+    position: absolute;
+    top: 0; left: 1rem;
+    line-height: 2.9rem;
+    color: #9d988c;
+    font-weight: 500;
+    pointer-events: none;
+}
+.campo-prefijo .form-control { padding-left: 2rem; }
+
+/* ----- Dos campos en una fila (no usar .row: style.css le pone min-height:100vh en móvil) ----- */
+.form-fila-2 { display: grid; grid-template-columns: 1fr; gap: 1rem; }
+@media (min-width: 576px) { .form-fila-2 { grid-template-columns: 1fr 1fr; } }
+
+/* ----- Contadores / enlaces de ayuda ----- */
+.form-ayuda a { color: var(--acento); text-decoration: none; font-weight: 500; }
+.form-ayuda a:hover { text-decoration: underline; }
+
+/* Mensaje de error propio (para validaciones que Bootstrap no pinta solo) */
+.form-error {
+    display: none;
+    margin-top: .35rem;
+    font-size: .875rem;
+    color: #dc3545;
+}
+.form-error.visible { display: block; }
+
+/* ----- Vista previa de imagen ----- */
+.img-preview {
+    position: relative;
+    aspect-ratio: 16 / 10;
+    width: 100%;
+    border: 1.5px dashed #cfc7b4;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, #f3ecdc, #e9e0cb);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    gap: .35rem;
+    color: rgba(31, 58, 43, .45);
+    overflow: hidden;
+}
+.img-preview i { font-size: 2.4rem; }
+.img-preview small { font-size: .82rem; }
+.img-preview img {
+    position: absolute;
+    inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+}
+.img-preview.con-imagen { border-style: solid; border-color: var(--borde); }
+.img-preview.con-imagen i,
+.img-preview.con-imagen small { display: none; }
+
+/* ----- Botón secundario (claro) ----- */
+.btn-suave {
+    background: #fbf9f4;
+    border: 1px solid var(--borde);
+    color: var(--verde);
+    border-radius: .75rem;
+    font-weight: 500;
+    padding: .5rem 1.1rem;
+}
+.btn-suave:hover { background: #f1ebdd; color: var(--verde); border-color: var(--verde); }
+.btn-suave i { color: var(--acento); }
+.btn-peligro-suave {
+    background: transparent;
+    border: 0;
+    color: #b03226;
+    font-weight: 500;
+    padding: .5rem .75rem;
+    border-radius: .75rem;
+}
+.btn-peligro-suave:hover { background: #fdf1ef; color: #b03226; }
+
+/* ----- Interruptor con texto de estado ----- */
+.estado-texto { font-weight: 600; }
+.estado-texto.ok  { color: #1e7a45; }
+.estado-texto.off { color: #c0392b; }
+
+/* ----- Aviso de formulario válido (modo diseño) ----- */
+.form-aviso {
+    display: none;
+    align-items: center;
+    gap: .6rem;
+    margin: 0;
+    padding: .8rem 1.75rem;
+    background: #e6f3ea;
+    border-bottom: 1px solid #c7e3d0;
+    color: #1e6a3e;
+    font-size: .92rem;
+}
+.form-aviso.visible { display: flex; }
+
+/* ============================================================
+   MI PERFIL
+   ============================================================ */
+.perfil-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    align-items: start;
+}
+@media (min-width: 992px) {
+    .perfil-grid { grid-template-columns: 1fr 1fr; }
+}
+
+.perfil-cabecera {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1.4rem 1.75rem;
+    border-bottom: 1px solid var(--borde);
+}
+.perfil-avatar {
+    width: 64px; height: 64px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: var(--verde);
+    color: #fff;
+    border: 3px solid var(--acento);
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.7rem;
+    font-weight: 700;
+    letter-spacing: .02em;
+    text-transform: uppercase;
+}
+.perfil-nombre {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--verde);
+    margin: 0;
+}
+.perfil-correo { color: var(--texto-suave); font-size: .9rem; margin: 0; overflow-wrap: anywhere; }
+
+/* Datos que el usuario NO puede cambiar por sí mismo */
+.datos-fijos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .6rem;
+}
+.dato-fijo {
+    background: #fbf9f4;
+    border: 1px solid var(--borde);
+    border-radius: .85rem;
+    padding: .6rem .8rem;
+    min-width: 0;
+}
+.dato-fijo small {
+    display: block;
+    font-size: .68rem;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--texto-suave);
+}
+.dato-fijo strong { display: block; font-size: .92rem; font-weight: 600; overflow-wrap: anywhere; }
+
+/* ----- Seguridad de la contraseña ----- */
+.fuerza { display: flex; gap: .35rem; margin-top: .6rem; }
+.fuerza span {
+    flex: 1;
+    height: 6px;
+    border-radius: 3px;
+    background: #e7e1d3;
+    transition: background .25s;
+}
+.fuerza[data-nivel="1"] span:nth-child(-n+1) { background: #d9534f; }
+.fuerza[data-nivel="2"] span:nth-child(-n+2) { background: #e6a23c; }
+.fuerza[data-nivel="3"] span:nth-child(-n+3) { background: #7fb069; }
+.fuerza[data-nivel="4"] span:nth-child(-n+4) { background: #1e7a45; }
+.fuerza-texto { font-size: .8rem; color: var(--texto-suave); margin-top: .35rem; }
+
+.requisitos { list-style: none; margin: .9rem 0 0; padding: 0; font-size: .85rem; color: var(--texto-suave); }
+.requisitos li { display: flex; align-items: center; gap: .5rem; padding: .15rem 0; }
+.requisitos li i { color: #c9c2b0; }
+.requisitos li.cumple { color: #1e6a3e; }
+.requisitos li.cumple i { color: #1e7a45; }
+
+/* ----- Celular ----- */
+@media (max-width: 575px) {
+    .datos-fijos { grid-template-columns: 1fr; }
+    .perfil-cabecera { padding: 1.15rem; }
+    .form-aviso { padding: .8rem 1.15rem; }
+}
