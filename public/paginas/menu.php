@@ -78,9 +78,9 @@ $json_flags = JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON
                 <h2 class="bn-titulo">Gestión del Menú</h2>
                 <p class="bn-subtitulo">Catálogo de productos disponibles para comensales y meseros</p>
             </div>
-            <button type="button" class="bn-btn bn-btn-verde align-self-start align-self-sm-auto" id="btnNuevo">
+            <a href="formulario-producto.php" class="bn-btn bn-btn-verde align-self-start align-self-sm-auto text-decoration-none">
                 <i class="bi bi-plus-lg"></i> Nuevo Platillo
-            </button>
+            </a>
         </div>
 
         <!-- Búsqueda + filtros por categoría -->
@@ -358,7 +358,6 @@ $json_flags = JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT | JSON
             $('fPreview').innerHTML = '<i class="bi bi-image"></i>';
             $('errImagen').classList.add('d-none');
         }
-        $('btnNuevo').addEventListener('click', () => { limpiarForm(); modalPlatillo.show(); });
         $('modalPlatillo').addEventListener('shown.bs.modal', () => $('fNombre').focus());
 
         // Redimensiona la imagen a máx. 640 px y la convierte a JPEG para que ocupe poco espacio

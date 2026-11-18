@@ -1,0 +1,115 @@
+/* ============================================================
+   LISTA DE CATEGORÍAS
+   Requiere style.css cargado antes
+   ============================================================ */
+
+.tabla-categorias th,
+.tabla-categorias td { padding: 1.2rem 1.5rem; }
+
+/* Ícono redondo (equivale al avatar de usuarios) */
+.icono-categoria {
+    width: 2.8rem; height: 2.8rem;
+    flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    border-radius: 50%;
+    border: 1.5px solid #e2b98d;
+    background: var(--crema);
+    color: var(--acento);
+    font-size: 1.1rem;
+}
+
+/* Conteo de productos */
+.productos-con { background: #e3e6fb; color: #2d3a9e; }
+.productos-sin { background: #f0ebe1; color: var(--texto-suave); }
+
+/* Eliminar: se pone rojo al pasar el mouse, y apagado si está deshabilitado */
+.btn-eliminar:hover:not(:disabled) { background: #fde2e4; color: #a4161a; }
+.btn-eliminar:disabled { opacity: .45; cursor: not-allowed; }
+
+/* ----- Tableta: celdas más compactas ----- */
+@media (max-width: 991px) {
+    .tabla-categorias th,
+    .tabla-categorias td { padding: 1rem .9rem; }
+}
+
+/* ----- Escritorio: tamaños compactos ----- */
+@media (min-width: 992px) {
+    .tabla-categorias th,
+    .tabla-categorias td {
+        padding: .85rem .8rem;
+        font-size: .92rem;
+    }
+
+    .tabla-categorias th:first-child,
+    .tabla-categorias td:first-child { padding-left: 1.25rem; }
+    .tabla-categorias th:last-child,
+    .tabla-categorias td:last-child  { padding-right: 1.25rem; }
+
+    .tabla-categorias th,
+    .tabla-categorias td:first-child .fw-semibold { white-space: nowrap; }
+
+    .icono-categoria { width: 2.3rem; height: 2.3rem; font-size: .95rem; }
+
+    .tabla-categorias .badge { font-size: .75rem; }
+
+    .tabla-categorias .btn {
+        padding: .35rem .6rem;
+        font-size: .88rem;
+    }
+}
+/* ================= BUSCADOR ================= */
+.buscador { position: relative; max-width: 420px; }
+
+.buscador > i {
+    position: absolute;
+    top: 50%; left: 1rem;
+    transform: translateY(-50%);
+    color: #9d988c;
+    pointer-events: none;
+}
+
+.buscador-input {
+    height: 2.9rem;
+    padding-left: 2.6rem;
+    background-color: #fbf9f4;
+    border: 1px solid var(--borde);
+    border-radius: .85rem;
+    font-size: 1rem; /* 16px: evita el zoom automático en iPhone */
+    transition: border-color .2s, box-shadow .2s;
+}
+
+.buscador-input:focus {
+    background-color: #fbf9f4;
+    border-color: var(--verde);
+    box-shadow: 0 0 0 .2rem rgba(31, 58, 43, .12);
+}
+
+/* ================= MODAL DE ELIMINACIÓN ================= */
+.cat-modal .modal-content {
+    background: var(--crema);
+    border: 0;
+    border-radius: 1.5rem;
+    box-shadow: 0 12px 45px rgba(60, 50, 30, .18);
+}
+
+.cat-modal-icono { font-size: 2.2rem; color: #c0392b; }
+
+.cat-modal-titulo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--verde);
+}
+
+.cat-btn {
+    padding: .55rem 1.4rem;
+    border-radius: .75rem;
+    font-weight: 500;
+}
+
+.btn-peligro { background: #b8402f; border-color: #b8402f; color: #fff; }
+.btn-peligro:hover { background: #9c3325; border-color: #9c3325; color: #fff; }
+
+/* Fondo oscuro del modal un poco más suave */
+.cat-modal ~ .modal-backdrop,
+.modal-backdrop.show { --bs-backdrop-opacity: .55; }
