@@ -1,0 +1,3 @@
+-- aqui van a estar todos los procedimientos almacenados, mientras que esten pueden usar consultas normales, 
+-- Luego simplemente se cambia a la llamadada del procedimiento
+-- Igual a esa vez que nos puso a hacer un procedimiento y luego alterar el codigo para llamarlo
