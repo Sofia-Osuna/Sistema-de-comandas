@@ -1,0 +1,1 @@
+-- aqui van a estar todos las vistas, mientras que esten pueden usar consultas normales, igual luego se cambian a la llamada para la vista xd
