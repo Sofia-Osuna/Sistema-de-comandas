@@ -1,114 +1,62 @@
 <?php
 /**
  * Beanora - Configuración
- * Ubicación: public/paginas/configuracion.php
+ * Ubicación: public/paginas/metodos-pagos.php
  *
- * Sección actual: Métodos de pago (listado + formulario nuevo/editar en modal).
- * Más adelante se pueden agregar otras secciones debajo con el mismo patrón
- * (<section class="bn-seccion"> ... </section>).
- *
- * Campos según el diccionario de datos (tabla `metodos_pago`):
- *   pk_metodo_pago  INT AUTO_INCREMENT (PK)
- *   metodo          VARCHAR(30)  NOT NULL, UNIQUE   (efectivo, tarjeta... se pueden agregar más)
- *   estatus         CHAR(1)      NOT NULL, default '1'   ('1' = activo, '0' = inactivo)
+ * Esta página es SOLO VISTA: lee la lista con el modelo y la pinta.
+ * Los formularios se envían a public/acciones/ (metodo-pago-guardar.php y
+ * metodo-pago-estatus.php), que validan, guardan y regresan aquí.
  *
  * No hay opción de eliminar: ventas.fk_metodo_pago usa RESTRICT, así que los
  * métodos con historial se DESACTIVAN (estatus = '0'), no se borran.
- *
- * Mientras no exista el modelo, los datos de ejemplo viven en $_SESSION para que
- * puedas probar agregar / editar / activar / desactivar. Los puntos a reemplazar
- * por consultas a la BD están marcados con "TODO BD".
  */
 
-if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+require_once __DIR__ . '/../../includes/csrf.php';   // inicia la sesión y da csrf_token()
+
+// TODO auth: cuando exista includes/auth.php, cambiar este bloque por su función.
+if (empty($_SESSION['pk_usuario'])) {
+    header('Location: login.php');
+    exit;
+}
+if (($_SESSION['rol'] ?? '') !== 'admin') {
+    http_response_code(403);
+    exit('Acceso denegado.');
 }
 
-$paginaActual = 'configuracion'; // por si el sidebar marca el ítem activo con esta variable
+$paginaActual = 'metodos-pagos'; // por si el sidebar marca el ítem activo con esta variable
 
-/* ---------- Datos de ejemplo (TODO BD: SELECT pk_metodo_pago, metodo, estatus FROM metodos_pago) ---------- */
-if (!isset($_SESSION['metodos_pago'])) {
-    $_SESSION['metodos_pago'] = [
-        1 => ['metodo' => 'efectivo',      'estatus' => '1'],
-        2 => ['metodo' => 'tarjeta',       'estatus' => '1'],
-        3 => ['metodo' => 'transferencia', 'estatus' => '0'],
-    ];
-}
-if (empty($_SESSION['csrf'])) {
-    $_SESSION['csrf'] = bin2hex(random_bytes(16));
-}
-$metodos = &$_SESSION['metodos_pago'];
-
-/* ---------- Mensaje de una operación anterior (se muestra una sola vez) ---------- */
-$exito = $_SESSION['flash'] ?? '';
-unset($_SESSION['flash']);
-
-/* ---------- Procesar formularios (el servidor es la autoridad) ---------- */
-$errores    = [];
-$formDatos  = ['pk' => 0, 'metodo' => '', 'estatus' => '1'];
-$abrirModal = false;
+/* ---------- Datos que recibe el diseño ---------- */
+$metodos     = [];
 $errorGlobal = '';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (!hash_equals($_SESSION['csrf'], $_POST['csrf'] ?? '')) {
-        $errorGlobal = 'La sesión del formulario expiró. Intenta de nuevo.';
+try {
+    require_once __DIR__ . '/../../modelos/Conexion.php';
+    require_once __DIR__ . '/../../modelos/MetodoPago.php';
+    $metodos = (new MetodoPago((new Conexion())->conectar()))->listar();
+} catch (Throwable $e) {
+    error_log('[metodos-pagos] ' . $e->getMessage());
+    $errorGlobal = 'No se pudo conectar con la base de datos.';
+}
+
+/* ---------- Resultado de la última acción (se muestra una sola vez) ---------- */
+$flash = $_SESSION['flash_metodos'] ?? null;
+unset($_SESSION['flash_metodos']);
+
+$exito      = '';
+$abrirModal = false;
+$formDatos  = ['pk' => 0, 'metodo' => '', 'estatus' => '1'];
+$errorCampo = '';
+
+if (is_array($flash)) {
+    if (!empty($flash['ok'])) {
+        $exito = (string) ($flash['mensaje'] ?? '');
+    } elseif (!empty($flash['form']) && is_array($flash['form'])) {
+        // Error de validación: se vuelve a abrir el modal con lo que escribió la persona
+        $abrirModal = true;
+        $formDatos  = $flash['form'];
+        $errorCampo = (string) ($flash['mensaje'] ?? '');
     } else {
-        $accion = $_POST['accion'] ?? '';
-        $pk     = (int)($_POST['pk'] ?? 0);
-
-        /* --- Guardar (nuevo / editar) --- */
-        if ($accion === 'guardar') {
-            $metodo  = mb_strtolower(trim($_POST['metodo'] ?? ''));
-            $estatus = isset($_POST['estatus']) ? '1' : '0';
-
-            if ($pk > 0 && !isset($metodos[$pk])) {
-                $errorGlobal = 'El método de pago que intentas editar no existe.';
-            } else {
-                if ($metodo === '') {
-                    $errores['metodo'] = 'El nombre del método de pago es obligatorio.';
-                } elseif (mb_strlen($metodo) > 30) {
-                    $errores['metodo'] = 'El nombre no puede pasar de 30 caracteres.';
-                } else {
-                    foreach ($metodos as $id => $m) {   // TODO BD: SELECT 1 FROM metodos_pago WHERE metodo = ? AND pk_metodo_pago <> ?
-                        if ($id !== $pk && $m['metodo'] === $metodo) {
-                            $errores['metodo'] = 'Ya existe un método de pago con ese nombre.';
-                            break;
-                        }
-                    }
-                }
-
-                if (!$errores) {
-                    if ($pk > 0) {
-                        // TODO BD: UPDATE metodos_pago SET metodo = ?, estatus = ? WHERE pk_metodo_pago = ?
-                        $metodos[$pk] = ['metodo' => $metodo, 'estatus' => $estatus];
-                        $_SESSION['flash'] = 'Método de pago actualizado correctamente.';
-                    } else {
-                        // TODO BD: INSERT INTO metodos_pago (metodo, estatus) VALUES (?, ?)
-                        $metodos[] = ['metodo' => $metodo, 'estatus' => $estatus];
-                        $_SESSION['flash'] = 'Método de pago registrado correctamente.';
-                    }
-                    header('Location: configuracion.php');
-                    exit;
-                }
-
-                // Hubo errores: se vuelve a abrir el modal con lo que escribió la persona
-                $formDatos  = ['pk' => $pk, 'metodo' => $metodo, 'estatus' => $estatus];
-                $abrirModal = true;
-            }
-        }
-
-        /* --- Activar / desactivar (baja lógica) --- */
-        if ($accion === 'estatus') {
-            if (isset($metodos[$pk])) {
-                // TODO BD: UPDATE metodos_pago SET estatus = ? WHERE pk_metodo_pago = ?
-                $metodos[$pk]['estatus'] = $metodos[$pk]['estatus'] === '1' ? '0' : '1';
-                $_SESSION['flash'] = $metodos[$pk]['estatus'] === '1'
-                    ? 'Método de pago activado.'
-                    : 'Método de pago desactivado. Ya no se podrá usar al cobrar.';
-            }
-            header('Location: configuracion.php');
-            exit;
-        }
+        $errorGlobal = (string) ($flash['mensaje'] ?? '');
     }
 }
 
@@ -152,7 +100,7 @@ $inactivos = $total - $activos;
         </div>
 
         <?php if ($errorGlobal): ?>
-            <div class="bn-nota mb-4"><i class="bi bi-exclamation-triangle-fill me-1"></i> <?= htmlspecialchars($errorGlobal) ?></div>
+            <div class="bn-nota mb-4"><i class="bi bi-exclamation-triangle-fill me-1"></i> <?= htmlspecialchars($errorGlobal, ENT_QUOTES, 'UTF-8') ?></div>
         <?php endif; ?>
 
         <!-- ================= Sección: Métodos de pago ================= -->
@@ -198,10 +146,10 @@ $inactivos = $total - $activos;
                             </tr>
                         </thead>
                         <tbody id="cuerpoMetodos">
-                            <?php foreach ($metodos as $pk => $m): $activo = $m['estatus'] === '1'; ?>
+                            <?php foreach ($metodos as $m): $pk = (int) $m['pk_metodo_pago']; $activo = $m['estatus'] === '1'; ?>
                                 <tr data-estatus="<?= $m['estatus'] ?>" class="<?= $activo ? '' : 'bn-fila-inactiva' ?>">
-                                    <td><span class="bn-num-pedido"><?= (int)$pk ?></span></td>
-                                    <td><span class="bn-metodo-nombre"><?= htmlspecialchars($m['metodo']) ?></span></td>
+                                    <td><span class="bn-num-pedido"><?= $pk ?></span></td>
+                                    <td><span class="bn-metodo-nombre"><?= htmlspecialchars($m['metodo'], ENT_QUOTES, 'UTF-8') ?></span></td>
                                     <td>
                                         <span class="bn-estado <?= $activo ? 'bn-estado-activo' : 'bn-estado-inactivo' ?>">
                                             <?= $activo ? 'Activo' : 'Inactivo' ?>
@@ -210,15 +158,16 @@ $inactivos = $total - $activos;
                                     <td class="text-end">
                                         <div class="d-inline-flex gap-2">
                                             <button type="button" class="bn-accion btn-editar-metodo"
-                                                    data-pk="<?= (int)$pk ?>"
-                                                    data-metodo="<?= htmlspecialchars($m['metodo']) ?>"
+                                                    data-pk="<?= $pk ?>"
+                                                    data-metodo="<?= htmlspecialchars($m['metodo'], ENT_QUOTES, 'UTF-8') ?>"
                                                     data-estatus="<?= $m['estatus'] ?>">
                                                 <i class="bi bi-pencil"></i> Editar
                                             </button>
-                                            <form method="post" class="d-inline">
-                                                <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
-                                                <input type="hidden" name="accion" value="estatus">
-                                                <input type="hidden" name="pk" value="<?= (int)$pk ?>">
+                                            <form method="post" action="../acciones/metodo-pago-estatus.php" class="d-inline">
+                                                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
+                                                <input type="hidden" name="pk" value="<?= $pk ?>">
+                                                <!-- estatus al que se quiere llegar (no se invierte en el servidor) -->
+                                                <input type="hidden" name="estatus" value="<?= $activo ? '0' : '1' ?>">
                                                 <?php if ($activo): ?>
                                                     <button type="submit" class="bn-accion peligro"><i class="bi bi-slash-circle"></i> Desactivar</button>
                                                 <?php else: ?>
@@ -259,9 +208,8 @@ $inactivos = $total - $activos;
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Cerrar"></button>
             </div>
 
-            <form id="formMetodo" method="post" novalidate>
-                <input type="hidden" name="csrf" value="<?= $_SESSION['csrf'] ?>">
-                <input type="hidden" name="accion" value="guardar">
+            <form id="formMetodo" method="post" action="../acciones/metodo-pago-guardar.php" novalidate>
+                <input type="hidden" name="csrf_token" value="<?= htmlspecialchars(csrf_token(), ENT_QUOTES, 'UTF-8') ?>">
                 <input type="hidden" name="pk" id="metodoPk" value="0">
 
                 <div class="modal-body">
@@ -394,7 +342,7 @@ $inactivos = $total - $activos;
         'pk'      => $formDatos['pk'],
         'metodo'  => $formDatos['metodo'],
         'estatus' => $formDatos['estatus'],
-        'error'   => $errores['metodo'] ?? '',
+        'error'   => $errorCampo,
     ], JSON_UNESCAPED_UNICODE) ?>);
     <?php endif; ?>
 </script>
